@@ -1,0 +1,28 @@
+name:
+    Command.java
+function:
+    機能を表示した後に,入力を読み取り
+    終了の機能が選択されるまで,
+    指定されたボードに存在する機能を呼び出し続ける
+input:
+    機能一覧の文字列配列(list),ボード情報(board)
+output:
+    実行されたかどうか(boolean)
+
+if 機能が書いてない(機能が空)
+    return エラー
+endif
+機能の表示
+loop
+
+    if 終了の入力
+        return 終了
+    endif 
+    if 機能外の入力
+        機能外であることのの表示
+    endif
+    機能の呼び出し
+endloop
+
+
+    
