@@ -14,7 +14,7 @@ public class Command
     {
     }
 
-    public Boolean CallCommandFunction(String[] inputCommands,Board inputBoard)
+    public Boolean CommandFunction(String[] inputCommands,Board inputBoard)
     {
         String[] commands = inputCommands;
         Board board = inputBoard;
@@ -84,7 +84,7 @@ public class Command
             i+=1;
             if(cmd==inputCommand)
             {
-                exitname=board.exitname()
+                exitname=board.ExitName()
                 if(cmd==exitname)
                 {
                     return 0; 
@@ -97,10 +97,10 @@ public class Command
 
     //機能の呼び出し(機能コマンド,コマンド変換番号)
     //機能番号としてexitと範囲外は来ないことが保証されている
-    Boolean CallFunction(int commandNumber)
+    Boolean CallFunction(,int commandNumber)
     {
         num = commandNumber
-        commandJudje = board.CommandFunction(num)
+        commandJudje = board.BoardFunction(commands,num)
         return commandJudje    
     }
         
@@ -231,3 +231,9 @@ public class Command
         {
             System.out.println("入力を終了します");
         }
+                    //予想外の入力に対する例外処理
+            }catch(InputMismatchException e){
+                    System.out.println("入力ミスです、数字を入力してください");
+                    //バッファのクリア
+                    scan.nextLine();
+            }
