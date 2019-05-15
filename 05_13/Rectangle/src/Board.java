@@ -12,7 +12,7 @@ public class Board
 {
     public static final int MAX_Rectangle = 10;
     //exitは一番目で固定すること
-    public String[] functionCommands = {"exit","aaa","exit"};
+    public String[] functionCommands = {"exit","create","move","expand/shink","delete","deleteAll","intersect","displayBoard"};
     int boardWidth = 0;
     int boardHeight = 0;
     ArrayList<Rectangle> listRectangle = new ArrayList<Rectangle>(MAX_Rectangle);

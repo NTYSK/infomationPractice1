@@ -7,7 +7,6 @@ import java.lang.Math;
 public class Rectangle
 {
     int x,y,width,height;
-
     //長方形の初期化
     public Rectangle()
     {

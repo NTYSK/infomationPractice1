@@ -11,6 +11,7 @@ import fig.rectangle.*;
 public class Command
 {  
     Board board;
+    Scanner scan = new Scanner(System.in);
     Command(Board inputBoard)
     {
         this.board = inputBoard;
@@ -21,50 +22,46 @@ public class Command
     {
         String[] commands = board.GetCommandsRectangle();
         Boolean judgeCommands = (commands.length == 0);
-        Scanner scan = new Scanner(System.in);
         if(judgeCommands == true)
         {
-            scan.close();
             return false;
         }
-        while(true)
-        {   
-            try{
-                String command;
-                int commandNumber;
-                //機能の表示
-                PrintBoardFunction(commands);
-                command = scan.next();
-                //機能と比較して数字に変換
-                commandNumber = ChangeInputToNumber(commands,command);
-                //機能実行
-                if(commandNumber==0)
-                {
-                    //exit入力時
-                    System.out.println("exitが入力されました");
-                    CallFunction(commandNumber);
-                    System.out.println("入力を終了します");
-                    break;
-                }else if(commandNumber==-1){
-                    //機能外の入力時
-                    System.out.println("これは機能外の入力です");
-                }else{
-                    //機能実行時
-                    Boolean functionCheck=true;
-                    functionCheck = CallFunction(commandNumber);
-                    if(functionCheck==false)
+        try{
+            while(true)
+            {   
+                    String command;
+                    int commandNumber;
+                    //機能の表示
+                    PrintBoardFunction(commands);
+                    command = scan.nextLine();
+                    commandNumber = ChangeInputToNumber(commands,command);
+                    //機能実行
+                    if(commandNumber==0)
                     {
-                        System.out.println("実行できませんでした");
+                        //exit入力時
+                        System.out.println("exitが入力されました");
+                        CallFunction(commandNumber);
+                        System.out.println("入力を終了します");
+                        break;
+                    }else if(commandNumber==-1){
+                        //機能外の入力時
+                        System.out.println("これは機能外の入力です");
                     }else{
-                        System.out.println("実行できました");
+                        //機能実行時
+                        Boolean functionCheck=true;
+                        functionCheck = CallFunction(commandNumber);
+                        if(functionCheck==false)
+                        {
+                            System.out.println("実行できませんでした");
+                        }else{
+                            System.out.println("実行できました");
+                        }
                     }
-                }
+            }   
             }catch(InputMismatchException e){
                 System.out.println("入力ミスです、数字を入力してください");
                 scan.next();
             }
-        }
-        scan.close();
         return true;
     }
     
@@ -93,16 +90,16 @@ public class Command
         for(String cmd:commands)
         {
             i+=1;
-            if(cmd==command)
+            if(cmd.equals(command))
             {
+                aryNum = i;
                 String exitName;
                 exitName=board.ExitName();
-                if(cmd==exitName)
+                if(command.equals(exitName))
                 {
+                    System.out.println("not:"+aryNum);
                     aryNum = 0;
-                    break; 
                 }
-                aryNum = i;
                 break;
             }
         }
@@ -124,7 +121,7 @@ public class Command
     {
         String[] commands = board.GetCommandsRectangle();
         Boolean cmdJudje = false,colorJudje = false;
-        Scanner scan = new Scanner(System.in);
+        System.out.println(aryNum);
         switch (aryNum)
         {
             case 0://exit
@@ -146,7 +143,7 @@ public class Command
                 //色を番号で渡す
                 System.out.println("色");
                 color = scan.nextInt();
-                colorJudje = board.SetColorRectangle();//
+                //colorJudje = board.SetColorRectangle();//
                 System.out.println("作成できませんでした");
                 this.DisplayBoard();
                 break;
@@ -210,7 +207,6 @@ public class Command
             default:
                 break;
         }
-        scan.close();
         return cmdJudje;
     }
     void DisplayBoard()//7
