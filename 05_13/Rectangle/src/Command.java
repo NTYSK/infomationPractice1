@@ -25,35 +25,39 @@ public class Command
         
         //機能の表示
         PrintBoardFunction(commands);
-
         while(1)
         {
             String command;
             Scanner scan = new Scanner(System.in);
             command = scan.next();
             int commandNumber;
+
             //機能と比較して数字に変換(機能コマンド,入力コマンド)
             commandNumber = ChangeInputToNumber(commands,command);
+            //機能実行
             if(commandNumber==0)
             {
+                //exitを入力時出力
                 System.out.println("exitが入力されました");
+                CallFunction(commandNumber);
                 retrun true;
-            }
-            if(commandNumber==-1)
-            {
+            }else if(commandNumber==-1){
+                //機能外の入力の時エラーを出力
                 System.out.println("これは機能外の入力です");
-            }
-            Boolean comandCheck=false;
-            comandCheck = CallFunction(commands,commandNumber);
-            if(comandCheck==false)
-            {
-                System.out.println("実行できませんでした");
             }else{
-                System.out.println("実行できました");
+                //機能を実行し、機能の実行有無を確認する
+                Boolean functionCheck=false;
+                functionCheck = CallFunction(commandNumber);
+                if(comandCheck==false)
+                {
+                    System.out.println("実行できませんでした");
+                }else{
+                    System.out.println("実行できました");
+                }
             }
-            
         }
     }
+
     //機能が存在することが保証されている 表示のみの関数 返り値無し
     void PrintBoardFunction(String[] inputCommands)
     {
@@ -61,12 +65,12 @@ public class Command
         int i=0;
         String bar = "================================";
         System.out.println(bar);
+        system.out.println("select function")
         for(String cmd:commands)
         {
             i+=1;
             System.out.println(i+":"+cmd);
         }
-        System.out.println(bar);
     }
 
     //commandsを元に返り値を決める 返り値(範囲外なら-1,exitなら０,それ以外ならコマンドの配列番号)
@@ -74,85 +78,32 @@ public class Command
     {
         String[] commands = inputCommands;
         String command = inputCommand;
-
+        int i=0;
+        for(String cmd:commands)
+        {
+            i+=1;
+            if(cmd==inputCommand)
+            {
+                exitname=board.exitname()
+                if(cmd==exitname)
+                {
+                    return 0; 
+                }else{
+                    return i;
+                }
+            }
+        }
     }
 
     //機能の呼び出し(機能コマンド,コマンド変換番号)
     //機能番号としてexitと範囲外は来ないことが保証されている
-    Boolean CallFunction(commands,commandNumber)
+    Boolean CallFunction(int commandNumber)
     {
+        num = commandNumber
+        commandJudje = board.CommandFunction(num)
+        return commandJudje    
+    }
         
-    }
-        for(String s="";!(s.equals("9"));)
-        {
-            try{
-                System.out.println("==========================");
-                System.out.println("select number");
-                System.out.println("1:create");
-                System.out.println("2:setcolor");
-                System.out.println("3:move");
-                System.out.println("4:expand/shrink");
-                System.out.println("5:delete");
-                System.out.println("6:deleteAll");
-                System.out.println("7:intersect");
-                System.out.println("8:displayBoard");
-                System.out.println("9:exit");
-                System.out.println("==========================");
-                s = scan.next();
-                s=s.toUpperCase();
-                int m = 0;
-                String[] commands={"create","setcolor","move","expand/shrink","deletedeleteAll","intersect","exit"};
-                //comandsを小文字に変換し番号に対応
-                for(String cm:commands)
-                {
-                    m++;
-                    if(s.equalsIgnoreCase(cm))
-                    {
-                        s=Integer.toString(m);
-                        break;
-                    }
-                }
-                switch (s)
-                {
-                    case "1"://create
-                        this.Create();
-                        break;
-                    case "2"://setcolor
-                        this.Color();
-                        break;
-                    case "3"://move
-                        this.Move();
-                        break;
-                    case "4"://expand_shrink
-                        this.ExpandShrink();
-                        break;
-                    case "5"://delete いらない
-                        this.Delete();
-                        break;
-                    case "6"://deleteAll いらない
-                        this.DeleteAll();
-                        break;
-                    case "7"://intersect 
-                        this.Intersect();
-                        break;
-                    case "8"://displayBoard いらない
-                        this.DisplayBoard();
-                        break;
-                    case "9"://exit いらない
-                        this.Exit();
-                        break;
-                    default:
-                        System.out.println("入力ミスです、1~8までのの番号を入力してください");
-                        break;
-                }
-            //予想外の入力に対する例外処理
-            }catch(InputMismatchException e){
-                    System.out.println("入力ミスです、数字を入力してください");
-                    //バッファのクリア
-                    scan.nextLine();
-            }
-        }
-    }
         void Create()//1
         {
             int x,y,height,width;
